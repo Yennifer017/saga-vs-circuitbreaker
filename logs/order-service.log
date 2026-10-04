@@ -1,0 +1,156 @@
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v3.3.4)
+
+18:21:12.215 [34mINFO [0;39m [ORDER   ] Starting OrderApplication v1.0.0 using Java 21.0.11-ea with PID 24078 (/home/blue-dragon/Downloads/saga-circuitbreaker-poc/order-service/target/order-service-1.0.0.jar started by blue-dragon in /home/blue-dragon/Downloads/saga-circuitbreaker-poc)
+18:21:12.235 [34mINFO [0;39m [ORDER   ] No active profile set, falling back to 1 default profile: "default"
+18:21:17.565 [34mINFO [0;39m [ORDER   ] Tomcat initialized with port 8081 (http)
+18:21:17.586 [34mINFO [0;39m [ORDER   ] Starting service [Tomcat]
+18:21:17.586 [34mINFO [0;39m [ORDER   ] Starting Servlet engine: [Apache Tomcat/10.1.30]
+18:21:17.682 [34mINFO [0;39m [ORDER   ] Initializing Spring embedded WebApplicationContext
+18:21:17.685 [34mINFO [0;39m [ORDER   ] Root WebApplicationContext: initialization completed in 5296 ms
+18:21:20.791 [34mINFO [0;39m [ORDER   ] Exposing 6 endpoints beneath base path '/actuator'
+18:21:20.904 [34mINFO [0;39m [ORDER   ] Tomcat started on port 8081 (http) with context path '/'
+18:21:20.958 [34mINFO [0;39m [ORDER   ] Started OrderApplication in 10.172 seconds (process running for 11.116)
+18:21:21.040 [34mINFO [0;39m [ORDER   ] Circuit Breaker registrado: inventoryService (estado inicial CLOSED)
+18:21:21.041 [34mINFO [0;39m [ORDER   ] Circuit Breaker registrado: shippingService (estado inicial CLOSED)
+18:21:21.041 [34mINFO [0;39m [ORDER   ] Circuit Breaker registrado: paymentService (estado inicial CLOSED)
+18:21:21.216 [34mINFO [0;39m [ORDER   ] [coreografia] suscrito a PAYMENT_FAILED
+18:21:21.220 [34mINFO [0;39m [ORDER   ] [coreografia] suscrito a INVENTORY_FAILED
+18:21:21.226 [34mINFO [0;39m [ORDER   ] [coreografia] suscrito a SHIPPING_FAILED
+18:21:21.231 [34mINFO [0;39m [ORDER   ] [coreografia] suscrito a SHIPPING_SCHEDULED
+18:21:22.463 [34mINFO [0;39m [ORDER   ] Initializing Spring DispatcherServlet 'dispatcherServlet'
+18:21:22.464 [34mINFO [0;39m [ORDER   ] Initializing Servlet 'dispatcherServlet'
+18:21:22.465 [34mINFO [0;39m [ORDER   ] Completed initialization in 1 ms
+18:22:02.057 [34mINFO [0;39m [ORDER   ] ══════════ INICIO SAGA SAGA-858eac21 (orquestacion) orden=ORD-642f7c1d ══════════
+18:22:02.058 [34mINFO [0;39m [ORDER   ] [T1] Orden creada: ORD-642f7c1d
+18:22:02.125 [34mINFO [0;39m [ORDER   ]   -> POST http://localhost:8082/payments
+18:22:02.144 [34mINFO [0;39m [ORDER   ] [T2] Cobro realizado: PAY-d36861d1
+18:22:02.144 [34mINFO [0;39m [ORDER   ]   -> POST http://localhost:8083/inventory/reserve
+18:22:02.156 [34mINFO [0;39m [ORDER   ] [T3] Stock reservado: RES-b45271c4
+18:22:02.156 [34mINFO [0;39m [ORDER   ]   -> POST http://localhost:8084/shipping/schedule
+18:22:02.176 [34mINFO [0;39m [ORDER   ] [T4] Envio programado: SHP-b31a4ff3
+18:22:02.176 [34mINFO [0;39m [ORDER   ] ══════════ SAGA SAGA-858eac21 COMPLETADA ══════════
+18:22:30.734 [34mINFO [0;39m [ORDER   ] ══════════ INICIO SAGA SAGA-9d7e93da (orquestacion) orden=ORD-966b1bb0 ══════════
+18:22:30.734 [34mINFO [0;39m [ORDER   ] [T1] Orden creada: ORD-966b1bb0
+18:22:30.734 [34mINFO [0;39m [ORDER   ]   -> POST http://localhost:8082/payments
+18:22:30.739 [34mINFO [0;39m [ORDER   ] [T2] Cobro realizado: PAY-c81b7d2f
+18:22:30.739 [34mINFO [0;39m [ORDER   ]   -> POST http://localhost:8083/inventory/reserve
+18:22:30.796 [31mWARN [0;39m [ORDER   ]   !! inventoryService rechazo la operacion por negocio: 409 CONFLICT
+18:22:30.801 [1;31mERROR[0;39m [ORDER   ] !!!! FALLO en T3 de la saga SAGA-9d7e93da [BUSINESS]: Regla de negocio rechazada por inventory-service: Stock insuficiente (solicitado=5, disponible=1)
+18:22:30.801 [31mWARN [0;39m [ORDER   ] ---------- INICIANDO COMPENSACIONES (orden inverso) ----------
+18:22:30.802 [34mINFO [0;39m [ORDER   ]   <- COMPENSANDO: POST http://localhost:8082/payments/PAY-c81b7d2f/refund
+18:22:30.813 [34mINFO [0;39m [ORDER   ]   <- COMPENSANDO: orden ORD-966b1bb0 marcada como CANCELLED
+18:22:30.813 [31mWARN [0;39m [ORDER   ] ══════════ SAGA SAGA-9d7e93da REVERTIDA (2 compensaciones) ══════════
+18:22:57.291 [34mINFO [0;39m [ORDER   ] ══════════ INICIO SAGA SAGA-f4963133 (orquestacion) orden=ORD-d115d572 ══════════
+18:22:57.291 [34mINFO [0;39m [ORDER   ] [T1] Orden creada: ORD-d115d572
+18:22:57.292 [34mINFO [0;39m [ORDER   ]   -> POST http://localhost:8082/payments
+18:22:57.478 [1;31mERROR[0;39m [ORDER   ]       [paymentService] llamada fallida (InternalServerError) - tasa de fallo actual -1.0%
+18:22:57.479 [1;31mERROR[0;39m [ORDER   ]   !! FALLBACK paymentService activado: InternalServerError: 500 : "{"timestamp":"2026-10-04T00:22:57.459+00:00","status":500,"error":"Internal Server Error","path":"/payments"}"
+18:22:57.479 [1;31mERROR[0;39m [ORDER   ] !!!! FALLO en T2 de la saga SAGA-f4963133 [TECHNICAL]: Servicio no disponible: payment-service (InternalServerError: 500 : "{"timestamp":"2026-10-04T00:22:57.459+00:00","status":500,"error":"Internal Server Error","path":"/payments"}")
+18:22:57.479 [31mWARN [0;39m [ORDER   ] ---------- INICIANDO COMPENSACIONES (orden inverso) ----------
+18:22:57.479 [34mINFO [0;39m [ORDER   ]   <- COMPENSANDO: orden ORD-d115d572 marcada como CANCELLED
+18:22:57.479 [31mWARN [0;39m [ORDER   ] ══════════ SAGA SAGA-f4963133 REVERTIDA (1 compensaciones) ══════════
+18:22:57.509 [34mINFO [0;39m [ORDER   ] ══════════ INICIO SAGA SAGA-8533cd39 (orquestacion) orden=ORD-0e687258 ══════════
+18:22:57.509 [34mINFO [0;39m [ORDER   ] [T1] Orden creada: ORD-0e687258
+18:22:57.509 [34mINFO [0;39m [ORDER   ]   -> POST http://localhost:8082/payments
+18:22:57.516 [1;31mERROR[0;39m [ORDER   ]       [paymentService] llamada fallida (InternalServerError) - tasa de fallo actual -1.0%
+18:22:57.517 [1;31mERROR[0;39m [ORDER   ]   !! FALLBACK paymentService activado: InternalServerError: 500 : "{"timestamp":"2026-10-04T00:22:57.514+00:00","status":500,"error":"Internal Server Error","path":"/payments"}"
+18:22:57.517 [1;31mERROR[0;39m [ORDER   ] !!!! FALLO en T2 de la saga SAGA-8533cd39 [TECHNICAL]: Servicio no disponible: payment-service (InternalServerError: 500 : "{"timestamp":"2026-10-04T00:22:57.514+00:00","status":500,"error":"Internal Server Error","path":"/payments"}")
+18:22:57.517 [31mWARN [0;39m [ORDER   ] ---------- INICIANDO COMPENSACIONES (orden inverso) ----------
+18:22:57.517 [34mINFO [0;39m [ORDER   ]   <- COMPENSANDO: orden ORD-0e687258 marcada como CANCELLED
+18:22:57.517 [31mWARN [0;39m [ORDER   ] ══════════ SAGA SAGA-8533cd39 REVERTIDA (1 compensaciones) ══════════
+18:22:57.546 [34mINFO [0;39m [ORDER   ] ══════════ INICIO SAGA SAGA-6800f326 (orquestacion) orden=ORD-789a0125 ══════════
+18:22:57.546 [34mINFO [0;39m [ORDER   ] [T1] Orden creada: ORD-789a0125
+18:22:57.547 [34mINFO [0;39m [ORDER   ]   -> POST http://localhost:8082/payments
+18:22:57.552 [1;31mERROR[0;39m [ORDER   ]       [paymentService] llamada fallida (InternalServerError) - tasa de fallo actual -1.0%
+18:22:57.552 [1;31mERROR[0;39m [ORDER   ]   !! FALLBACK paymentService activado: InternalServerError: 500 : "{"timestamp":"2026-10-04T00:22:57.550+00:00","status":500,"error":"Internal Server Error","path":"/payments"}"
+18:22:57.552 [1;31mERROR[0;39m [ORDER   ] !!!! FALLO en T2 de la saga SAGA-6800f326 [TECHNICAL]: Servicio no disponible: payment-service (InternalServerError: 500 : "{"timestamp":"2026-10-04T00:22:57.550+00:00","status":500,"error":"Internal Server Error","path":"/payments"}")
+18:22:57.552 [31mWARN [0;39m [ORDER   ] ---------- INICIANDO COMPENSACIONES (orden inverso) ----------
+18:22:57.552 [34mINFO [0;39m [ORDER   ]   <- COMPENSANDO: orden ORD-789a0125 marcada como CANCELLED
+18:22:57.552 [31mWARN [0;39m [ORDER   ] ══════════ SAGA SAGA-6800f326 REVERTIDA (1 compensaciones) ══════════
+18:22:57.588 [34mINFO [0;39m [ORDER   ] ══════════ INICIO SAGA SAGA-dd91ebcb (orquestacion) orden=ORD-63adc9c2 ══════════
+18:22:57.589 [34mINFO [0;39m [ORDER   ] [T1] Orden creada: ORD-63adc9c2
+18:22:57.589 [34mINFO [0;39m [ORDER   ]   -> POST http://localhost:8082/payments
+18:22:57.596 [1;31mERROR[0;39m [ORDER   ]       [paymentService] llamada fallida (InternalServerError) - tasa de fallo actual -1.0%
+18:22:57.596 [1;31mERROR[0;39m [ORDER   ]   !! FALLBACK paymentService activado: InternalServerError: 500 : "{"timestamp":"2026-10-04T00:22:57.593+00:00","status":500,"error":"Internal Server Error","path":"/payments"}"
+18:22:57.596 [1;31mERROR[0;39m [ORDER   ] !!!! FALLO en T2 de la saga SAGA-dd91ebcb [TECHNICAL]: Servicio no disponible: payment-service (InternalServerError: 500 : "{"timestamp":"2026-10-04T00:22:57.593+00:00","status":500,"error":"Internal Server Error","path":"/payments"}")
+18:22:57.596 [31mWARN [0;39m [ORDER   ] ---------- INICIANDO COMPENSACIONES (orden inverso) ----------
+18:22:57.596 [34mINFO [0;39m [ORDER   ]   <- COMPENSANDO: orden ORD-63adc9c2 marcada como CANCELLED
+18:22:57.596 [31mWARN [0;39m [ORDER   ] ══════════ SAGA SAGA-dd91ebcb REVERTIDA (1 compensaciones) ══════════
+18:22:57.625 [34mINFO [0;39m [ORDER   ] ══════════ INICIO SAGA SAGA-f94bb216 (orquestacion) orden=ORD-d8d065f6 ══════════
+18:22:57.626 [34mINFO [0;39m [ORDER   ] [T1] Orden creada: ORD-d8d065f6
+18:22:57.626 [34mINFO [0;39m [ORDER   ]   -> POST http://localhost:8082/payments
+18:22:57.631 [1;31mERROR[0;39m [ORDER   ]       [paymentService] llamada fallida (InternalServerError) - tasa de fallo actual -1.0%
+18:22:57.686 [31mWARN [0;39m [ORDER   ] ***** CIRCUIT BREAKER [paymentService] : CLOSED -> OPEN *****
+18:22:57.687 [1;31mERROR[0;39m [ORDER   ]   !! FALLBACK paymentService activado: InternalServerError: 500 : "{"timestamp":"2026-10-04T00:22:57.630+00:00","status":500,"error":"Internal Server Error","path":"/payments"}"
+18:22:57.687 [1;31mERROR[0;39m [ORDER   ] !!!! FALLO en T2 de la saga SAGA-f94bb216 [TECHNICAL]: Servicio no disponible: payment-service (InternalServerError: 500 : "{"timestamp":"2026-10-04T00:22:57.630+00:00","status":500,"error":"Internal Server Error","path":"/payments"}")
+18:22:57.687 [31mWARN [0;39m [ORDER   ] ---------- INICIANDO COMPENSACIONES (orden inverso) ----------
+18:22:57.687 [34mINFO [0;39m [ORDER   ]   <- COMPENSANDO: orden ORD-d8d065f6 marcada como CANCELLED
+18:22:57.687 [31mWARN [0;39m [ORDER   ] ══════════ SAGA SAGA-f94bb216 REVERTIDA (1 compensaciones) ══════════
+18:22:57.726 [34mINFO [0;39m [ORDER   ] ══════════ INICIO SAGA SAGA-59cc6100 (orquestacion) orden=ORD-40918ca6 ══════════
+18:22:57.727 [34mINFO [0;39m [ORDER   ] [T1] Orden creada: ORD-40918ca6
+18:22:57.728 [1;31mERROR[0;39m [ORDER   ] ***** CIRCUIT BREAKER [paymentService] ABIERTO: llamada RECHAZADA sin intentarla *****
+18:22:57.728 [1;31mERROR[0;39m [ORDER   ]   !! FALLBACK paymentService activado: CIRCUITO ABIERTO: la llamada ni siquiera se intento
+18:22:57.728 [1;31mERROR[0;39m [ORDER   ] !!!! FALLO en T2 de la saga SAGA-59cc6100 [CIRCUIT_OPEN]: Servicio no disponible: payment-service (CIRCUITO ABIERTO: la llamada ni siquiera se intento)
+18:22:57.728 [31mWARN [0;39m [ORDER   ] ---------- INICIANDO COMPENSACIONES (orden inverso) ----------
+18:22:57.728 [34mINFO [0;39m [ORDER   ]   <- COMPENSANDO: orden ORD-40918ca6 marcada como CANCELLED
+18:22:57.728 [31mWARN [0;39m [ORDER   ] ══════════ SAGA SAGA-59cc6100 REVERTIDA (1 compensaciones) ══════════
+18:22:57.755 [34mINFO [0;39m [ORDER   ] ══════════ INICIO SAGA SAGA-4e782a29 (orquestacion) orden=ORD-d8db078b ══════════
+18:22:57.756 [34mINFO [0;39m [ORDER   ] [T1] Orden creada: ORD-d8db078b
+18:22:57.756 [1;31mERROR[0;39m [ORDER   ] ***** CIRCUIT BREAKER [paymentService] ABIERTO: llamada RECHAZADA sin intentarla *****
+18:22:57.756 [1;31mERROR[0;39m [ORDER   ]   !! FALLBACK paymentService activado: CIRCUITO ABIERTO: la llamada ni siquiera se intento
+18:22:57.756 [1;31mERROR[0;39m [ORDER   ] !!!! FALLO en T2 de la saga SAGA-4e782a29 [CIRCUIT_OPEN]: Servicio no disponible: payment-service (CIRCUITO ABIERTO: la llamada ni siquiera se intento)
+18:22:57.756 [31mWARN [0;39m [ORDER   ] ---------- INICIANDO COMPENSACIONES (orden inverso) ----------
+18:22:57.756 [34mINFO [0;39m [ORDER   ]   <- COMPENSANDO: orden ORD-d8db078b marcada como CANCELLED
+18:22:57.756 [31mWARN [0;39m [ORDER   ] ══════════ SAGA SAGA-4e782a29 REVERTIDA (1 compensaciones) ══════════
+18:22:57.785 [34mINFO [0;39m [ORDER   ] ══════════ INICIO SAGA SAGA-2f438a8f (orquestacion) orden=ORD-0034e3e7 ══════════
+18:22:57.785 [34mINFO [0;39m [ORDER   ] [T1] Orden creada: ORD-0034e3e7
+18:22:57.786 [1;31mERROR[0;39m [ORDER   ] ***** CIRCUIT BREAKER [paymentService] ABIERTO: llamada RECHAZADA sin intentarla *****
+18:22:57.786 [1;31mERROR[0;39m [ORDER   ]   !! FALLBACK paymentService activado: CIRCUITO ABIERTO: la llamada ni siquiera se intento
+18:22:57.786 [1;31mERROR[0;39m [ORDER   ] !!!! FALLO en T2 de la saga SAGA-2f438a8f [CIRCUIT_OPEN]: Servicio no disponible: payment-service (CIRCUITO ABIERTO: la llamada ni siquiera se intento)
+18:22:57.786 [31mWARN [0;39m [ORDER   ] ---------- INICIANDO COMPENSACIONES (orden inverso) ----------
+18:22:57.786 [34mINFO [0;39m [ORDER   ]   <- COMPENSANDO: orden ORD-0034e3e7 marcada como CANCELLED
+18:22:57.786 [31mWARN [0;39m [ORDER   ] ══════════ SAGA SAGA-2f438a8f REVERTIDA (1 compensaciones) ══════════
+18:23:07.688 [31mWARN [0;39m [ORDER   ] ***** CIRCUIT BREAKER [paymentService] : OPEN -> HALF_OPEN *****
+18:23:26.177 [34mINFO [0;39m [ORDER   ] ══════════ INICIO SAGA SAGA-30c28ffb (orquestacion) orden=ORD-1d61bf82 ══════════
+18:23:26.177 [34mINFO [0;39m [ORDER   ] [T1] Orden creada: ORD-1d61bf82
+18:23:26.178 [34mINFO [0;39m [ORDER   ]   -> POST http://localhost:8082/payments
+18:23:26.183 [34mINFO [0;39m [ORDER   ] [T2] Cobro realizado: PAY-5528b0e0
+18:23:26.183 [34mINFO [0;39m [ORDER   ]   -> POST http://localhost:8083/inventory/reserve
+18:23:26.189 [34mINFO [0;39m [ORDER   ] [T3] Stock reservado: RES-a6baa1b1
+18:23:26.190 [34mINFO [0;39m [ORDER   ]   -> POST http://localhost:8084/shipping/schedule
+18:23:26.194 [34mINFO [0;39m [ORDER   ] [T4] Envio programado: SHP-a92c1dc3
+18:23:26.194 [34mINFO [0;39m [ORDER   ] ══════════ SAGA SAGA-30c28ffb COMPLETADA ══════════
+18:23:26.223 [34mINFO [0;39m [ORDER   ] ══════════ INICIO SAGA SAGA-bd1c30ef (orquestacion) orden=ORD-07a6a778 ══════════
+18:23:26.224 [34mINFO [0;39m [ORDER   ] [T1] Orden creada: ORD-07a6a778
+18:23:26.224 [34mINFO [0;39m [ORDER   ]   -> POST http://localhost:8082/payments
+18:23:26.229 [34mINFO [0;39m [ORDER   ] [T2] Cobro realizado: PAY-3cd490b4
+18:23:26.230 [34mINFO [0;39m [ORDER   ]   -> POST http://localhost:8083/inventory/reserve
+18:23:26.235 [34mINFO [0;39m [ORDER   ] [T3] Stock reservado: RES-45befbd7
+18:23:26.235 [34mINFO [0;39m [ORDER   ]   -> POST http://localhost:8084/shipping/schedule
+18:23:26.240 [34mINFO [0;39m [ORDER   ] [T4] Envio programado: SHP-3656eb3c
+18:23:26.240 [34mINFO [0;39m [ORDER   ] ══════════ SAGA SAGA-bd1c30ef COMPLETADA ══════════
+18:23:26.267 [34mINFO [0;39m [ORDER   ] ══════════ INICIO SAGA SAGA-312a5bb0 (orquestacion) orden=ORD-0b85f075 ══════════
+18:23:26.268 [34mINFO [0;39m [ORDER   ] [T1] Orden creada: ORD-0b85f075
+18:23:26.268 [34mINFO [0;39m [ORDER   ]   -> POST http://localhost:8082/payments
+18:23:26.274 [31mWARN [0;39m [ORDER   ] ***** CIRCUIT BREAKER [paymentService] : HALF_OPEN -> CLOSED *****
+18:23:26.274 [34mINFO [0;39m [ORDER   ] [T2] Cobro realizado: PAY-83ff3f32
+18:23:26.274 [34mINFO [0;39m [ORDER   ]   -> POST http://localhost:8083/inventory/reserve
+18:23:26.280 [34mINFO [0;39m [ORDER   ] [T3] Stock reservado: RES-6f171991
+18:23:26.280 [34mINFO [0;39m [ORDER   ]   -> POST http://localhost:8084/shipping/schedule
+18:23:26.285 [34mINFO [0;39m [ORDER   ] [T4] Envio programado: SHP-d8ec077b
+18:23:26.285 [34mINFO [0;39m [ORDER   ] ══════════ SAGA SAGA-312a5bb0 COMPLETADA ══════════
+18:23:29.831 [34mINFO [0;39m [ORDER   ] ══════════ INICIO SAGA SAGA-f38a7a18 (coreografia) orden=ORD-4ebf88cf ══════════
+18:23:29.832 [34mINFO [0;39m [ORDER   ] [T1] Orden creada. Publico ORDER_CREATED y me desentiendo del resto del flujo.
+18:23:30.380 [34mINFO [0;39m [ORDER   ] ══════════ SAGA SAGA-f38a7a18 COMPLETADA (coreografia) ══════════
+18:23:32.079 [34mINFO [0;39m [ORDER   ] ══════════ INICIO SAGA SAGA-ed4534b2 (coreografia) orden=ORD-e8662b9d ══════════
+18:23:32.079 [34mINFO [0;39m [ORDER   ] [T1] Orden creada. Publico ORDER_CREATED y me desentiendo del resto del flujo.
+18:23:32.107 [31mWARN [0;39m [ORDER   ] [coreografia] reaccion a INVENTORY_FAILED saga=SAGA-ed4534b2 -> orden ORD-e8662b9d CANCELADA <<< COMPENSACION
+18:23:32.113 [31mWARN [0;39m [ORDER   ] ══════════ SAGA SAGA-ed4534b2 REVERTIDA (coreografia) ══════════

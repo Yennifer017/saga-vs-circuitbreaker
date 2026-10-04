@@ -1,0 +1,8 @@
+server:
+  port: 8080
+spring:
+  application:
+    name: event-bus
+logging:
+  pattern:
+    console: "%d{HH:mm:ss.SSS} %highlight(%-5level) [EVENT-BUS] %msg%n"

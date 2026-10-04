@@ -1,0 +1,42 @@
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v3.3.4)
+
+18:21:12.247 [34mINFO [0;39m [EVENT-BUS] Starting EventBusApplication v1.0.0 using Java 21.0.11-ea with PID 24074 (/home/blue-dragon/Downloads/saga-circuitbreaker-poc/event-bus/target/event-bus-1.0.0.jar started by blue-dragon in /home/blue-dragon/Downloads/saga-circuitbreaker-poc)
+18:21:12.254 [34mINFO [0;39m [EVENT-BUS] No active profile set, falling back to 1 default profile: "default"
+18:21:17.148 [34mINFO [0;39m [EVENT-BUS] Tomcat initialized with port 8080 (http)
+18:21:17.177 [34mINFO [0;39m [EVENT-BUS] Starting service [Tomcat]
+18:21:17.178 [34mINFO [0;39m [EVENT-BUS] Starting Servlet engine: [Apache Tomcat/10.1.30]
+18:21:17.278 [34mINFO [0;39m [EVENT-BUS] Initializing Spring embedded WebApplicationContext
+18:21:17.285 [34mINFO [0;39m [EVENT-BUS] Root WebApplicationContext: initialization completed in 4656 ms
+18:21:18.863 [34mINFO [0;39m [EVENT-BUS] Exposing 1 endpoint beneath base path '/actuator'
+18:21:18.976 [34mINFO [0;39m [EVENT-BUS] Tomcat started on port 8080 (http) with context path '/'
+18:21:19.002 [34mINFO [0;39m [EVENT-BUS] Started EventBusApplication in 8.259 seconds (process running for 9.16)
+18:21:19.080 [34mINFO [0;39m [EVENT-BUS] Initializing Spring DispatcherServlet 'dispatcherServlet'
+18:21:19.081 [34mINFO [0;39m [EVENT-BUS] Initializing Servlet 'dispatcherServlet'
+18:21:19.083 [34mINFO [0;39m [EVENT-BUS] Completed initialization in 1 ms
+18:21:19.248 [34mINFO [0;39m [EVENT-BUS] SUSCRIPCION  INVENTORY_RESERVED -> http://localhost:8084/events
+18:21:19.386 [34mINFO [0;39m [EVENT-BUS] SUSCRIPCION  PAYMENT_CHARGED -> http://localhost:8083/events
+18:21:19.425 [34mINFO [0;39m [EVENT-BUS] SUSCRIPCION  SHIPPING_FAILED -> http://localhost:8083/events
+18:21:19.836 [34mINFO [0;39m [EVENT-BUS] SUSCRIPCION  ORDER_CREATED -> http://localhost:8082/events
+18:21:19.876 [34mINFO [0;39m [EVENT-BUS] SUSCRIPCION  INVENTORY_FAILED -> http://localhost:8082/events
+18:21:19.882 [34mINFO [0;39m [EVENT-BUS] SUSCRIPCION  SHIPPING_FAILED -> http://localhost:8082/events
+18:21:21.209 [34mINFO [0;39m [EVENT-BUS] SUSCRIPCION  PAYMENT_FAILED -> http://localhost:8081/events
+18:21:21.219 [34mINFO [0;39m [EVENT-BUS] SUSCRIPCION  INVENTORY_FAILED -> http://localhost:8081/events
+18:21:21.224 [34mINFO [0;39m [EVENT-BUS] SUSCRIPCION  SHIPPING_FAILED -> http://localhost:8081/events
+18:21:21.230 [34mINFO [0;39m [EVENT-BUS] SUSCRIPCION  SHIPPING_SCHEDULED -> http://localhost:8081/events
+18:23:29.959 [34mINFO [0;39m [EVENT-BUS] EVENTO       ORDER_CREATED (saga=SAGA-f38a7a18) -> 1 suscriptor(es)
+18:23:30.213 [34mINFO [0;39m [EVENT-BUS] EVENTO       PAYMENT_CHARGED (saga=SAGA-f38a7a18) -> 1 suscriptor(es)
+18:23:30.283 [34mINFO [0;39m [EVENT-BUS] EVENTO       INVENTORY_RESERVED (saga=SAGA-f38a7a18) -> 1 suscriptor(es)
+18:23:30.336 [34mINFO [0;39m [EVENT-BUS] EVENTO       SHIPPING_SCHEDULED (saga=SAGA-f38a7a18) -> 1 suscriptor(es)
+18:23:32.083 [34mINFO [0;39m [EVENT-BUS] EVENTO       ORDER_CREATED (saga=SAGA-ed4534b2) -> 1 suscriptor(es)
+18:23:32.090 [34mINFO [0;39m [EVENT-BUS] EVENTO       PAYMENT_CHARGED (saga=SAGA-ed4534b2) -> 1 suscriptor(es)
+18:23:32.099 [34mINFO [0;39m [EVENT-BUS] EVENTO       INVENTORY_FAILED (saga=SAGA-ed4534b2) -> 2 suscriptor(es)
+18:23:32.111 [34mINFO [0;39m [EVENT-BUS] EVENTO       ORDER_CANCELLED (saga=SAGA-ed4534b2) -> 0 suscriptor(es)
+18:23:32.112 [34mINFO [0;39m [EVENT-BUS] EVENTO       PAYMENT_REFUNDED (saga=SAGA-ed4534b2) -> 0 suscriptor(es)

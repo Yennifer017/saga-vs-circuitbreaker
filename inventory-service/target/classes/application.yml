@@ -1,0 +1,16 @@
+server:
+  port: 8083
+spring:
+  application:
+    name: inventory-service
+poc:
+  event-bus-url: http://localhost:8080
+  self-url: http://localhost:8083
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info
+logging:
+  pattern:
+    console: "%d{HH:mm:ss.SSS} %highlight(%-5level) [INVENTORY] %msg%n"

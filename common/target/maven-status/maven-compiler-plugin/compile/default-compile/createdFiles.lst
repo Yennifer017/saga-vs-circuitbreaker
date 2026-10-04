@@ -1,0 +1,16 @@
+com/universidad/poc/common/Dtos$EventEnvelope.class
+com/universidad/poc/common/Dtos$ReserveRequest.class
+com/universidad/poc/common/FailureSimulator.class
+com/universidad/poc/common/Dtos$Subscription.class
+com/universidad/poc/common/Dtos$SagaResult.class
+com/universidad/poc/common/Dtos$SagaStep.class
+com/universidad/poc/common/Dtos$PaymentRequest.class
+com/universidad/poc/common/Dtos$ReservationResponse.class
+com/universidad/poc/common/Dtos$ShippingResponse.class
+com/universidad/poc/common/EventBusClient.class
+com/universidad/poc/common/Dtos$ShippingRequest.class
+com/universidad/poc/common/Dtos$FailMode.class
+com/universidad/poc/common/Dtos$PaymentResponse.class
+com/universidad/poc/common/Dtos$PurchaseRequest.class
+com/universidad/poc/common/Dtos$OrderResponse.class
+com/universidad/poc/common/Dtos.class

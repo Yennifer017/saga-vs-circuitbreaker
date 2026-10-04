@@ -1,0 +1,16 @@
+server:
+  port: 8084
+spring:
+  application:
+    name: shipping-service
+poc:
+  event-bus-url: http://localhost:8080
+  self-url: http://localhost:8084
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info
+logging:
+  pattern:
+    console: "%d{HH:mm:ss.SSS} %highlight(%-5level) [SHIPPING ] %msg%n"

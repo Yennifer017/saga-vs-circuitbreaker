@@ -1,0 +1,88 @@
+server:
+  port: 8081
+
+spring:
+  application:
+    name: order-service
+
+poc:
+  payment-url:   http://localhost:8082
+  inventory-url: http://localhost:8083
+  shipping-url:  http://localhost:8084
+  event-bus-url: http://localhost:8080
+  self-url:      http://localhost:8081
+
+# ══════════════════════════════════════════════════════════════════════════
+#  RESILIENCE4J — Circuit Breaker, Retry y Bulkhead
+#  Los valores son los que exige el enunciado de la practica.
+# ══════════════════════════════════════════════════════════════════════════
+resilience4j:
+  circuitbreaker:
+    configs:
+      default:
+        # --- parametros pedidos por el enunciado ---
+        failureRateThreshold: 50                      # % de fallos para ABRIR el circuito
+        waitDurationInOpenState: 10s                  # tiempo en OPEN antes de pasar a HALF_OPEN
+        slidingWindowSize: 10                         # numero de llamadas que se consideran
+        permittedNumberOfCallsInHalfOpenState: 3      # llamadas de prueba en HALF_OPEN
+        # --- parametros de apoyo ---
+        slidingWindowType: COUNT_BASED                # ventana por numero de llamadas
+        minimumNumberOfCalls: 5                       # no evalua la tasa antes de 5 llamadas
+        slowCallRateThreshold: 50                     # % de llamadas lentas para abrir
+        slowCallDurationThreshold: 1s                 # a partir de aqui una llamada es "lenta"
+        automaticTransitionFromOpenToHalfOpenEnabled: true
+        registerHealthIndicator: true
+        # Un 4xx de NEGOCIO (sin stock, sin fondos) NO debe abrir el circuito:
+        # el servicio esta sano, simplemente rechazo la operacion.
+        ignoreExceptions:
+          - org.springframework.web.client.HttpClientErrorException
+    instances:
+      paymentService:
+        baseConfig: default
+      inventoryService:
+        baseConfig: default
+      shippingService:
+        baseConfig: default
+
+  retry:
+    configs:
+      default:
+        maxAttempts: 3              # 1 intento + 2 reintentos
+        waitDuration: 300ms
+        retryExceptions:
+          - org.springframework.web.client.ResourceAccessException
+          - org.springframework.web.client.HttpServerErrorException
+        ignoreExceptions:
+          - org.springframework.web.client.HttpClientErrorException
+    instances:
+      paymentService:   { baseConfig: default }
+      inventoryService: { baseConfig: default }
+      shippingService:  { baseConfig: default }
+
+  bulkhead:
+    configs:
+      default:
+        maxConcurrentCalls: 10     # aisla recursos: maximo 10 llamadas simultaneas por dependencia
+        maxWaitDuration: 100ms
+    instances:
+      paymentService:   { baseConfig: default }
+      inventoryService: { baseConfig: default }
+      shippingService:  { baseConfig: default }
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,circuitbreakers,circuitbreakerevents,retries,metrics
+  endpoint:
+    health:
+      show-details: always
+  health:
+    circuitbreakers:
+      enabled: true
+
+logging:
+  level:
+    io.github.resilience4j: INFO
+  pattern:
+    console: "%d{HH:mm:ss.SSS} %highlight(%-5level) [ORDER   ] %msg%n"

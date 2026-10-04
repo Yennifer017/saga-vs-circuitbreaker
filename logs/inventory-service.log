@@ -1,0 +1,47 @@
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v3.3.4)
+
+18:21:12.188 [34mINFO [0;39m [INVENTORY] Starting InventoryApplication v1.0.0 using Java 21.0.11-ea with PID 24076 (/home/blue-dragon/Downloads/saga-circuitbreaker-poc/inventory-service/target/inventory-service-1.0.0.jar started by blue-dragon in /home/blue-dragon/Downloads/saga-circuitbreaker-poc)
+18:21:12.202 [34mINFO [0;39m [INVENTORY] No active profile set, falling back to 1 default profile: "default"
+18:21:15.651 [34mINFO [0;39m [INVENTORY] Tomcat initialized with port 8083 (http)
+18:21:15.697 [34mINFO [0;39m [INVENTORY] Starting service [Tomcat]
+18:21:15.698 [34mINFO [0;39m [INVENTORY] Starting Servlet engine: [Apache Tomcat/10.1.30]
+18:21:15.815 [34mINFO [0;39m [INVENTORY] Initializing Spring embedded WebApplicationContext
+18:21:15.817 [34mINFO [0;39m [INVENTORY] Root WebApplicationContext: initialization completed in 3495 ms
+18:21:17.775 [34mINFO [0;39m [INVENTORY] Exposing 2 endpoints beneath base path '/actuator'
+18:21:17.950 [34mINFO [0;39m [INVENTORY] Tomcat started on port 8083 (http) with context path '/'
+18:21:17.973 [34mINFO [0;39m [INVENTORY] Started InventoryApplication in 6.969 seconds (process running for 8.131)
+18:21:19.170 [34mINFO [0;39m [INVENTORY] Initializing Spring DispatcherServlet 'dispatcherServlet'
+18:21:19.170 [34mINFO [0;39m [INVENTORY] Initializing Servlet 'dispatcherServlet'
+18:21:19.172 [34mINFO [0;39m [INVENTORY] Completed initialization in 2 ms
+18:21:19.410 [34mINFO [0;39m [INVENTORY] [coreografia] suscrito a PAYMENT_CHARGED
+18:21:19.427 [34mINFO [0;39m [INVENTORY] [coreografia] suscrito a SHIPPING_FAILED
+18:22:01.561 [31mWARN [0;39m [INVENTORY] [inventory-service] >>> FAIL-MODE cambiado a 'none' (latencia=3000ms)
+18:22:01.782 [31mWARN [0;39m [INVENTORY] >>> STOCK de SKU-LAPTOP fijado manualmente en 10
+18:22:01.790 [31mWARN [0;39m [INVENTORY] >>> STOCK de SKU-RARO fijado manualmente en 1
+18:22:02.151 [34mINFO [0;39m [INVENTORY] RESERVA OK    saga=SAGA-858eac21 reservationId=RES-b45271c4 sku=SKU-LAPTOP qty=2 restante=8
+18:22:30.678 [31mWARN [0;39m [INVENTORY] [inventory-service] >>> FAIL-MODE cambiado a 'none' (latencia=3000ms)
+18:22:30.706 [31mWARN [0;39m [INVENTORY] >>> STOCK de SKU-LAPTOP fijado manualmente en 10
+18:22:30.716 [31mWARN [0;39m [INVENTORY] >>> STOCK de SKU-RARO fijado manualmente en 1
+18:22:30.743 [31mWARN [0;39m [INVENTORY] SIN STOCK     saga=SAGA-9d7e93da sku=SKU-RARO pedido=5 disponible=1
+18:22:57.207 [31mWARN [0;39m [INVENTORY] [inventory-service] >>> FAIL-MODE cambiado a 'none' (latencia=3000ms)
+18:22:57.227 [31mWARN [0;39m [INVENTORY] >>> STOCK de SKU-LAPTOP fijado manualmente en 10
+18:22:57.234 [31mWARN [0;39m [INVENTORY] >>> STOCK de SKU-RARO fijado manualmente en 1
+18:23:26.187 [34mINFO [0;39m [INVENTORY] RESERVA OK    saga=SAGA-30c28ffb reservationId=RES-a6baa1b1 sku=SKU-MOUSE qty=1 restante=49
+18:23:26.233 [34mINFO [0;39m [INVENTORY] RESERVA OK    saga=SAGA-bd1c30ef reservationId=RES-45befbd7 sku=SKU-MOUSE qty=1 restante=48
+18:23:26.278 [34mINFO [0;39m [INVENTORY] RESERVA OK    saga=SAGA-312a5bb0 reservationId=RES-6f171991 sku=SKU-MOUSE qty=1 restante=47
+18:23:29.780 [31mWARN [0;39m [INVENTORY] [inventory-service] >>> FAIL-MODE cambiado a 'none' (latencia=3000ms)
+18:23:29.804 [31mWARN [0;39m [INVENTORY] >>> STOCK de SKU-LAPTOP fijado manualmente en 10
+18:23:29.812 [31mWARN [0;39m [INVENTORY] >>> STOCK de SKU-RARO fijado manualmente en 1
+18:23:30.273 [34mINFO [0;39m [INVENTORY] [coreografia] reaccion a PAYMENT_CHARGED saga=SAGA-f38a7a18 -> reservando 1 x SKU-LAPTOP
+18:23:30.273 [34mINFO [0;39m [INVENTORY] [coreografia] RESERVA OK saga=SAGA-f38a7a18 restante=9
+18:23:32.070 [31mWARN [0;39m [INVENTORY] >>> STOCK de SKU-RARO fijado manualmente en 0
+18:23:32.094 [34mINFO [0;39m [INVENTORY] [coreografia] reaccion a PAYMENT_CHARGED saga=SAGA-ed4534b2 -> reservando 3 x SKU-RARO
+18:23:32.096 [1;31mERROR[0;39m [INVENTORY] [coreografia] RESERVA FALLIDA saga=SAGA-ed4534b2 motivo=Stock insuficiente de SKU-RARO (solicitado=3, disponible=0)
